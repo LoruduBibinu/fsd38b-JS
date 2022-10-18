@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+.idea/
+.vscode/
+Exercices_prof/
+Examples_prof/
+DOCS/
+QCM_JS/
+README.md
