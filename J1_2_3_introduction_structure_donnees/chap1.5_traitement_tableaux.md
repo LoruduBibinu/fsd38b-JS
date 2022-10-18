@@ -207,5 +207,84 @@ const new_fruits = fruits.filter(fruit => fruit.length <= 6)
 - `fruit => fruit.includes("o")` : Ne conserve que les éléments contenant la lettre "o"
 - `fruit => fruit.toUpperCase()` : Transforme les éléments en majuscule
 
+---
 
+## La méthode `.reduce`
+
+La méthode `.reduce` permet quant à elle de **réduire un tableau à une seule valeur**, en utilisant une fonction de réduction.
+
+Essayons d'expliquer cela par un exemple :
+
+```js
+const notes = [15, 18, 11, 8, 9, 19];
+
+const somme_notes = ???
+```
+
+Ici, comment calculer la somme de tous les éléments du tableau de notes ?
+
+On pourrait (en programmation _impérative_) utiliser une variable et faire une boucle classique :
+
+```js
+let somme_notes = 0;
+for (let i = 0; i < notes.length; i++) {
+    somme_notes = somme_notes + notes[i];
+}
+```
+
+Mais c'est assez lourd et peu flexible : il faut créer une variable de somme, écrire la boucle et faire l'opération sans se tromper dans les caractères.
+
+La partie la plus utile de la boucle `for()` est finalement la ligne suivante :
+
+```js
+somme_notes = somme_notes + notes[i];
+```
+
+On peut dire ici que :
+- `notes[i]` correspond à la **note en cours de traitement**
+- `somme_notes` correspond à la **valeur accumulée de la somme** au fur et à mesure du traitement
+
+#### reduce FTW!
+
+La méthode `.reduce()` disponible sur tous les tableaux en JS nous permet d'écrire le code suivant pour calculer efficacement notre somme :
+
+```js
+const somme_totale = notes.reduce((somme_notes, note) => somme_notes + note);
+```
+
+Ici, la fonction d'accumulation est la suivante :
+
+```js
+(somme_notes, note) => somme_notes + note
+
+// Ou, en version longue :
+
+function (somme_notes, note) {
+    return somme_notes + note;
+}
+```
+
+Cette fonction d'accumulation reçoit 2 arguments :
+
+1. Le premier argument correspond à la valeur accumulée de chaque appel précédent
+2. Le second argument correspond à l'élément en cours de traitement
+
+Décomposons en reprenant le tableau :
+
+```js
+[15, 18, 11, 8, 9, 19]
+```
+
+Par défaut, `.reduce` prend comme 1ère valeur accumulée le 1er élément du tableau, et le 2nd élément comme élément en cours de traitement.
+
+- Lors du 1er appel, `.reduce` appelle la fonction d'accumulation avec les paramètres `(15, 18)`
+    - Cette fonction renvoie le résultat de l'opération `15 + 18`, soit `33`
+- Lors du 2nd appel, `.reduce` appelle la fonction d'accumulation avec les paramètres `(33, 11)` (33 étant la valeur accumulée)
+    - Cette fonction renvoie le résultat de l'opération `33 + 18`, soit `51`
+- Lors du 2nd appel, `.reduce` appelle la fonction d'accumulation avec les paramètres `(51, 8)` (51 étant la valeur accumulée)
+    - Cette fonction renvoie le résultat de l'opération `51 + 8`, soit `59`
+
+… etc, jusqu'à réduire le tableau final à la valeur `80`, qui est la somme des éléments du tableau ! 🎉
+
+<!-- # Annexes : -->
 
